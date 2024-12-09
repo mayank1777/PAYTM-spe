@@ -1,0 +1,9 @@
+---
+# Docker role: tasks related to starting Docker containers
+
+- name: Start Docker containers (using images from DockerHub)
+  shell: docker-compose up -d
+  args:
+    chdir: "{{ playbook_dir }}"  # Use playbook directory for Docker Compose
+  become: true  # Optionally run as root if needed
+  

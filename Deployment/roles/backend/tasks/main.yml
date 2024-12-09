@@ -1,0 +1,8 @@
+---
+# Backend role: tasks related to the backend service
+
+- name: Create backend environment file dynamically
+  shell: echo "MONGO_URI={{ db_url }}" > ../backend/.env
+  args:
+    chdir: "{{ playbook_dir }}"  # Ensure correct directory is used to run the shell command
+  become: true  # Optionally run as root if needed
