@@ -7,7 +7,7 @@
     tasks:
   
       # 1. Create backend environment file dynamically
-      - name: Create backend environment file dynamically
+      - name: Create backend environment file dynamically is this joke
         shell: echo MONGO_URI={{ db_url }} > ../backend/.env
         args:
           chdir: "{{ playbook_dir }}"  # Ensure correct directory is used to run the shell command
