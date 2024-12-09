@@ -1,0 +1,58 @@
+---
+- name: Deploy Docker Containers
+  hosts: localhost
+  vars_files:
+    - secrets.yml  # Load encrypted variables (contains db_url, docker_user, docker_pat)
+  
+  tasks:
+
+<<<<<<< HEAD
+=======
+    - name: Login to Docker Hub
+      docker_login:
+        username: "{{ docker_user }}"
+        password: "{{ docker_pat }}"
+      when: build_backend | default(true)
+
+>>>>>>> 1b8e43b (lets die)
+    # 1. Create backend environment file dynamically
+    - name: Create backend environment file dynamically
+      shell: echo MONGO_URI={{ db_url }} > ../backend/.env
+      args:
+        chdir: "{{ playbook_dir }}"  # Ensure correct directory is used to run the shell command
+
+    # 2. Build backend Docker image
+    - name: Build backend Docker image
+      docker_image:
+        build:
+          path: ../backend  # Absolute path to backend directory
+        name: aasmaan1/backend
+        tag: latest
+        push: yes
+        source: build
+      when: build_backend | default(true)
+      become: yes  # Use sudo if needed
+
+    # 5. Build frontend Docker image
+    - name: Build frontend Docker image
+      docker_image:
+        build:
+          path: ../frontend  # Absolute path to frontend directory
+        name: aasmaan1/frontend
+        tag: latest
+        push: yes
+        source: build
+      when: build_frontend | default(true)
+      become: yes  # Use sudo if needed
+
+    # 7. Pull Docker images (from DockerHub)
+    - name: Pull Docker images (from DockerHub)
+      shell: docker-compose pull
+      args:
+        chdir: "{{ playbook_dir }}"  # Use playbook directory for Docker Compose
+
+    # 8. Start Docker containers (using images from DockerHub)
+    - name: Start Docker containers (using images from DockerHub)
+      shell: docker-compose up -d
+      args:
+        chdir: "{{ playbook_dir }}"  # Use playbook directory for Docker Compose
