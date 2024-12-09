@@ -6,6 +6,10 @@
     
     tasks:
   
+      - name: Debug docker_user and docker_pat
+        debug:
+          msg: "Docker User: {{ docker_user }}, Docker PAT: {{ docker_pat }}"
+        
       - name: Login to Docker Hub
         docker_login:
           username: "{{ docker_user }}"
@@ -53,4 +57,3 @@
         shell: docker-compose up -d
         args:
           chdir: "{{ playbook_dir }}"  # Use playbook directory for Docker Compose
-  
