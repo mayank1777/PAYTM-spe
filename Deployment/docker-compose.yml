@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   backend:
-    image: aasmaan1/backend  # Pulling the pre-built image from DockerHub
+    image: aasmaan1/backend:${BUILD_ID}  # Pulling the pre-built image from DockerHub
     ports:
       - "3000:3000"  # Map host port 3000 to container port 3000
    
 
   frontend:
-    image: aasmaan1/frontend  # Pulling the pre-built image from DockerHub
+    image: aasmaan1/frontend:${BUILD_ID}  # Pulling the pre-built image from DockerHub
     ports:
       - "5173:80"  # Map host port 5173 to container port 80
    

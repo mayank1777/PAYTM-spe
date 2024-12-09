@@ -1,21 +1,9 @@
 ---
-  - name: Deploy Docker Containers
-    hosts: localhost
-    vars_files:
-      - secrets.yml  # Load encrypted variables (contains db_url, docker_user, docker_pat)
-    
-    tasks:
-  
-      # 1. Create backend environment file dynamically
-      - name: Create backend environment file dynamically is this joke
-        shell: echo MONGO_URI={{ db_url }} > ../backend/.env
-        args:
-          chdir: "{{ playbook_dir }}"  # Ensure correct directory is used to run the shell command
-  
-  
-      # 8. Start Docker containers (using images from DockerHub)
-      - name: Start Docker containers (using images from DockerHub)
-        shell: docker-compose up -d
-        args:
-          chdir: "{{ playbook_dir }}"  # Use playbook directory for Docker Compose
-  
+- name: Deploy Docker Containers
+  hosts: localhost
+  vars_files:
+    - secrets.yml
+
+  roles:
+    - backend
+    - docker
