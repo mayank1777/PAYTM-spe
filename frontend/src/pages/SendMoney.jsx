@@ -18,6 +18,8 @@ export const SendMoney = () => {
   const id = searchParams.get("id");
   const name = searchParams.get("name");
   const [amount, setAmount] = useState(0);
+  const [note, setNote] = useState(""); // Add state for the note
+  // const [sentiment, setSentiment] = useState(null); // To store sentiment result
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -51,6 +53,17 @@ export const SendMoney = () => {
                 />
               </div>
 
+              <div className="space-y-2">
+              <label className="text-sm font-medium leading-none">Note</label>
+              <textarea
+                onChange={(e) => setNote(e.target.value)}
+                value={note}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                id="note"
+                placeholder="Add a note with your transaction"
+              />
+            </div>
+
               <button
                 onClick={async () => {
                   try {
@@ -59,6 +72,7 @@ export const SendMoney = () => {
                       {
                         to: id,
                         amount,
+                        note
                       },
                       {
                         headers: {
@@ -68,7 +82,9 @@ export const SendMoney = () => {
                     );
 
                     // Navigate on success
-                    navigate("/paymentstatus?message=" + res?.data.message);
+                    // navigate("/paymentstatus?message=" + res?.data.message);
+                    navigate("/paymentstatus?message=" + res?.data.message + "&sentiment=" + res?.data.sentiment + "&feedback=" + res?.data.feedback);
+
                   } catch (error) {
                     // Handle error response
                     if (error.response) {
