@@ -17,6 +17,7 @@ const connectToDatabase = async () => {
         console.error('Error connecting to MongoDB:', err.message);
     }
 };
+
 connectToDatabase();
 const Schema = mongoose.Schema;
 const userSchema = new mongoose.Schema({

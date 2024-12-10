@@ -1,0 +1,2 @@
+{"email":"validUser@gmail.com","level":"warn","message":"Signup attempt with existing email","timestamp":"2024-12-10T06:32:07.094Z"}
+{"amount":1000000,"level":"warn","message":"Insufficient balance or account not found","timestamp":"2024-12-10T06:32:08.507Z","userId":"6757e0676ffa6425f6773c03"}
